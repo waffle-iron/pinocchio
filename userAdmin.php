@@ -6,13 +6,18 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="bootstrap-sortable.css" />
+	
+	<!-- JS/PHP includes -->
+	<script src="jquery.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="bootstrap-sortable.js"></script>
+	<script src="search.js"></script>
+    <script src="validation.js"></script>
+    <script src="submit.js"></script>
+	
+	<script src="http://code.jquery.com/jquery-1.8.3.js" type="text/javascript"></script>	
 </head>
-<body>
-
-	
-	<!-- TESTING ONLY -->
-	<p id="test">testing area</p>
-	
+<body>	
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
@@ -47,9 +52,10 @@
                         </a>
                     </h4>
                 </div>
+
                 <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="panel-body">
-                        <form class="form-horizontal" onsubmit="return validateForm()" role="form" method="post" action="#">
+                        <form class="form-horizontal" onsubmit="return validateForm()" id="userForm" role="form" method="post" action="#">
                             <div class="form-group">
 								<!-- Title Input -->
                                 <label for="title" class="col-sm-2 control-label">Title:</label>
@@ -122,6 +128,7 @@
                             <div class="form-group">
 								<!-- Submit Button -->
                                 <div class="col-sm-offset-2 col-sm-10">
+                                    <!--<input type="button" value="button" class="btn btn-info" id="submitUser" onclick='userSubmit();'>-->
                                     <button type="submit" class="btn btn-info" id="submitUser" onclick="userSubmit()">Submit</button>
                                 </div>
                             </div>
@@ -129,6 +136,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
@@ -137,6 +145,7 @@
                         </a>
                     </h4>
                 </div>
+
                 <div id="collapseTwo" class="panel-collapse collapse">
                     <div class="panel-body">
                         <form role="form" method="post" action="#">
@@ -163,7 +172,7 @@
 				<div id="collapseThree" class="panel-collapse collapse">
                     <div class="panel-body">
 					
-						<input type="text" class="form-control" id="search" placeholder="Search" onkeyup="showResult(this.value)">
+						<input type="text" class="form-control" id="search" placeholder="Search" onkeyup="showResult(this.value, 'users')">
 						
 						<?php
 							include 'genericSQLStatements.php';
@@ -176,23 +185,20 @@
 							}
 							
 							//$result = mysqli_query($con, "SELECT * FROM users");
-							$result = selectFromTable("student",array(1=>1));
+							$result = selectFromTable("studentdetail",array(1=>1));
 							echo " <div class='table-responsive'>
 							<table class='table sortable' id='users'>
 								<thead>
 									<tr>
-										<th>#</th>
-										<th>Student Number</th>
+										<th>Student ID</th>
 										<th>Title</th>
 										<th>Initials</th>
 										<th>First Name</th>
 										<th>Surname</th>
-										<th data-defaultsort='disabled'>Password</th>
 										<th data-defaultsort='disabled'>Cell</th>
 										<th>Email</th>
-										<th>Status</th>
-										<th></th>
-										<th></th>
+										<th>Accept Edit</th>
+										<th>Remove</th>
 									</tr>
 								</thead>
 								<tbody>";
@@ -239,63 +245,6 @@
             <p class="navbar-text pull-left">&copy; Dillon Heins</p>
             <a class="navbar-btn btn-danger btn pull-right">Log Out</a>
         </div>
-    </div>
-	
-	<!-- JS/PHP includes -->
-	<script src="jquery.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="bootstrap-sortable.js"></script>
-	<script src="search.js"></script>
-    <script src="validation.js"></script>
-	<?php include 'genericSQLStatements.php'; ?>
-
-	<script>
-		function userSubmit()
-		{
-			/// @TODO have checking for password
-			
-			alert("Clicked User Submit");
-			
-			/// TESTING
-			var testing = "Clicked User Submit"; document.getElementByID("test").innerHTML = testing;
-			<?php
-				$values = array("studentID" => document.getElementByID("studentnumber").value,
-								"Title" => document.getElementByID("title").value,
-								"Initials" => document.getElementByID("initials").value,
-								"Name" => document.getElementByID("firstname").value,
-								"Surname" => document.getElementByID("surname").value,
-								"Password" => document.getElementByID("password").value,
-								"Cell" => document.getElementByID("cell").value,
-								"Email" => document.getElementByID("email").value,
-								"Status" => document.getElementByID("status").value);
-				
-				insertIntoTable("studentdetail", $values);
-			?>
-		}
-		
-		function csvSubmit()
-		{
-			alert("Clicked CSV Submit");
-		}
-		
-		function acceptEdit($stringRow)
-		{
-			alert("Clicked Accept");
-			<?php 
-				$row = unserialize($stringRow);
-                /// @TODO Update studentdetail as well
-				updateTable("users", $row, $where = array("studentID" => $row["Student Number"]));
-			?>
-		}
-		
-		function deleteRow($stringRow)
-		{
-			alert("Clicked Delete");
-			<?php 
-				$row = unserialize($stringRow);
-				deleteFromTable("users", $row);
-			?>
-		}
-	<script>
+    </div>	
 </body>
 </html>
