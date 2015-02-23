@@ -56,6 +56,36 @@ function roundSubmit()
     });
 }
 
+function teamSubmit()
+{
+    var values = [];
+
+    values["teamDetailID"] = $("#teamDetailID").val();
+    values["userID"] = $("#userID").val();
+    values["roundID"] = $("#roundID").val();
+    values["teamNumber"] = $("#teamNumber").val();
+    values["status"] = $("#status").val();
+
+    var jsonValues = JSON.stringify(values);
+
+    document.write($("#teamDetailID").val());
+    
+    jQuery.ajax({
+        type: "POST",
+        url: "ajaxMiddleman.php",
+        data: {table: "teamdetail", jsonValues: jsonValues, functionname: "teamSubmit"},
+        
+        success: function(x)
+        {
+            alert(x + " SUCCESS" + jsonValues);
+        },
+        error: function(x)
+        {
+            alert(x + " ERROR");
+        }
+    });
+}
+
 function csvSubmit()
 {
     alert("Clicked CSV Submit");
