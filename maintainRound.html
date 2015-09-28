@@ -52,7 +52,6 @@
                                     <th>Questionnaire Description</th>
                                     <th>Starting Date</th>
                                     <th>Ending Date</th>
-                                    <th>Change Status</th>
                                     <th>Maintain</th>
                                     <th>Accept Edit</th>
                                     <th>Remove</th>
@@ -67,19 +66,25 @@
                                             <option value="Second">Second</option>
                                             <option value="Third">Third</option>
                                         </select>
-                                        <input type="button" value="+" class="btn btn-info btn-xs plus" field=""/>
+                                          <input type="button" value="+" class="btn btn-info btn-xs plus" field="" onClick="location.href='questionnaireAdmin.html'"  /> 
                                     </td>
-                                    <td>yyyy-mm-dd</td>
-                                    <td>yyyy-mm-dd</td>
                                     <td>
-                                        <select>
-                                            <option>Active</option>
-                                            <option>Deactive</option>
-                                        </select>
+                                        <form action="action_page.php">
+                                          <input type="datetime-local" name="startingDate" class = "icon-bar">
+                                        </form>
+
                                     </td>
-                                    <td><button type='button' class='btn btn-default btn-xs' id='maintain' onclick='#'><a href="maintainRound.html"><span class="glyphicon glyphicon-wrench"></span></button></button></a></button></td>
+
+                                    <td>
+                                        <form action="action_page.php">
+                                          <input type="datetime-local" name="endingDate">
+                                        </form>
+                                    </td>
+                            
+                                    <td><button type='button' class='btn btn-default btn-xs' id='maintain' onclick='#'><a href="teamBuilder.html"><span class="glyphicon glyphicon-wrench"></span></button></button></a></button></td>
                                     <td><button type='button' class='btn btn-success btn-xs' id='accept' onclick='#'>&#10004;</button></td>
-                                    <td><button type='button' class='btn btn-warning btn-xs' id='delete' onclick='#'>&#10008;</button></td>
+                                    <td><button type='button' class='btn btn-warning btn-xs' id='delete' onclick="deleteRow(row)">&#10008;
+                                    </button></td>
                                 </tr>
                                 <tr>
                                     <td contenteditable=true>This is another round</td>
@@ -89,20 +94,28 @@
                                             <option value="Second">Second</option>
                                             <option value="Third">Third</option>
                                         </select>
-
-                                        <input type="button" value="+" class="btn btn-info btn-xs plus" field=""/>
+                                        <input type="button" value="+" class="btn btn-info btn-xs plus" field="" onClick="location.href='questionnaireAdmin.html'"  />  
                                     </td>
-                                    <td>yyyy-mm-dd</td>
-                                    <td>yyyy-mm-dd</td>
                                     <td>
-                                        <select>
-                                            <option>Active</option>
-                                            <option>Deactive</option>
-                                        </select>
+                                        <form action="action_page.php">
+                                          <input type="datetime-local" name="startingDate">
+                                        </form>
                                     </td>
-                                    <td><button type='button' class='btn btn-default btn-xs' id='maintain' onclick='#'><a href="maintainRound.html"><span class="glyphicon glyphicon-wrench"></span></a></button></td>
+                                    <td>
+                                        <form action="action_page.php">
+                                          <input type="datetime-local" name="endingDate">
+                                        </form>
+                                    </td>
+                                    <td><button type='button' class='btn btn-default btn-xs' id='maintain' onclick='#'><a href="teamBuilder.html"><span class="glyphicon glyphicon-wrench"></span></a></button></td>
+    
                                     <td><button type='button' class='btn btn-success btn-xs' id='accept' onclick='#'>&#10004;</button></td>
-                                    <td><button type='button' class='btn btn-warning btn-xs' id='delete' onclick='#'>&#10008;</button></td>
+
+
+                                    <td><button type='button' class='btn btn-warning btn-xs' id='delete' onclick="RemoveRow ()">&#10008;</button></td>
+
+
+
+
                                 </tr>
                                 <tr><td><input type="button" value="+" class="btn btn-info btn-xs plus" field=""/></td></tr>
                             </tbody>
