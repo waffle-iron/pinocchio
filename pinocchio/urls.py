@@ -54,7 +54,7 @@ urlpatterns = [
                   url(r'^maintainRound/dump/?$', views.round_dump),
                   url(r'^maintainRound/delete/(?P<round_pk>[0-9]+)/?$', views.round_delete),
                   url(r'^maintainRound/update/(?P<round_pk>[0-9]+)/?$', views.round_update),
-                  url(r'^maintainTeam/getTeamsForRound/(?P<round_pk>[0-9]+)/?$', views.get_teams_for_round),
+                  url(r'^maintainTeam/getTeamsForRound/(?P<round_pk>[0-9]+)/?$', views.get_teams_for_round, name='getTeamsForRound'),
                   url(r'^maintainTeam/getQuestionnaireForRound/(?P<round_pk>[0-9]+)/?$', views.get_questionnaire_for_round),
                   url(
                       r'^maintainTeam/changeUserTeamForRound/(?P<round_pk>[0-9]+)/(?P<user_pk>[0-9]+)/(?P<team_name>[a-zA-Z0-9]+)/?$',
