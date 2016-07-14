@@ -43,20 +43,20 @@ class MaintainTeamTests(TestCase):
         self.assertEqual(json_response_team2['userId'], str(self.user2.pk))
         self.assertEqual(json_response_team2['status'], team2.status)
 
-        def test_change_user_team_for_round(self):
-            self.client.login(username='bob@bob.com', password='bob')
-            url = reverse('changeUserTeamForRound',
-                          kwargs={'round_pk': self.round1.pk, 'user_pk': self.user1.userId, 'team_name': 'Red'})
-            response = self.client.get(url)
-            self.assertEqual(response.status_code, 200)
-            data = json.loads(response.content.decode())
-            team = TeamDetail.objects.get(pk=data['team_pk'])
-            self.assertEqual(team.teamName, 'Red')
+    def test_change_user_team_for_round(self):
+        self.client.login(username='bob@bob.com', password='bob')
+        url = reverse('changeUserTeamForRound',
+                      kwargs={'round_pk': self.round1.pk, 'user_pk': self.user1.userId, 'team_name': 'Red'})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content.decode())
+        team = TeamDetail.objects.get(pk=data['team_pk'])
+        self.assertEqual(team.teamName, 'Red')
 
-            url = reverse('changeUserTeamForRound',
-                          kwargs={'round_pk': self.round1.pk, 'user_pk': self.user1.userId, 'team_name': 'Green'})
-            response = self.client.get(url)
-            self.assertEqual(response.status_code, 200)
-            data = json.loads(response.content.decode())
-            team = TeamDetail.objects.get(pk=data['team_pk'])
-            self.assertEqual(team.teamName, 'Green')
+        url = reverse('changeUserTeamForRound',
+                      kwargs={'round_pk': self.round1.pk, 'user_pk': self.user1.userId, 'team_name': 'Green'})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        data = json.loads(response.content.decode())
+        team = TeamDetail.objects.get(pk=data['team_pk'])
+        self.assertEqual(team.teamName, 'Green')
