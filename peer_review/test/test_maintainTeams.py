@@ -1,5 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase, Client
+from django.utils import timezone
 
 from peer_review.models import User, TeamDetail, RoundDetail
 
@@ -13,10 +14,10 @@ class MaintainTeamTests(TestCase):
         self.client = Client()
         self.user1 = User.objects.create_user('bob@bob.com', 'bob', userId=1)
         self.user2 = User.objects.create_user('joe@joe.com', 'joe', userId=2)
-        self.round1 = RoundDetail.objects.create(name='Round 1', startingDate=datetime.datetime.now(),
-                                                 endingDate=datetime.datetime.now(), description='Test Round 1')
-        self.round2 = RoundDetail.objects.create(name='Round 2', startingDate=datetime.datetime.now(),
-                                                 endingDate=datetime.datetime.now(), description='Test Round 2')
+        self.round1 = RoundDetail.objects.create(name='Round 1', startingDate=timezone.now(),
+                                                 endingDate=timezone.now(), description='Test Round 1')
+        self.round2 = RoundDetail.objects.create(name='Round 2', startingDate=timezone.now(),
+                                                 endingDate=timezone.now(), description='Test Round 2')
 
     def test_get_teams_for_round(self):
         self.client.login(username='bob@bob.com', password='bob')
