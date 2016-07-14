@@ -112,9 +112,9 @@ class Label(models.Model):
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password, **kwargs):
+    def create_user(self, username, password, **kwargs):
         user = self.model(
-            email=self.normalize_email(email),
+            username=username,
             is_active=True,
             **kwargs
         )
@@ -122,9 +122,9 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password, **kwargs):
+    def create_superuser(self, username, password, **kwargs):
         user = self.model(
-            email=email,
+            username=username,
             is_staff=True,
             is_superuser=True,
             is_active=True,
@@ -136,6 +136,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    username = models.CharField(max_length=30, primary_key=True)
     title = models.CharField(max_length=4)
     initials = models.CharField(max_length=10)
     name = models.CharField(max_length=50)
@@ -143,11 +144,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     cell = models.CharField(max_length=10)
     email = models.EmailField(max_length=254, unique=True)
 
-    userId = models.CharField(max_length=12, primary_key=True)
     OTP = models.BooleanField(default=True)
     status = models.CharField(max_length=1)
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
     # TODO Add more required fields maybe
     # REQUIRED_FIELDS = ['status']
 

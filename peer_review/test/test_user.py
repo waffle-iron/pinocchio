@@ -22,12 +22,12 @@ class UserTests(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user('bob@bob.com', 'bob')
-        self.user2 = User.objects.create_user('joe@joe.com', 'joe')
+        self.user = User.objects.create_user(username='bob', password='bob')
+        self.user2 = User.objects.create_user(username='joe', password='joe')
 
     # Simple test to see if questionAdmin is rendered
     def test_questionAdmin(self):
-        self.client.login(username='bob@bob.com', password='bob')
+        self.client.login(username='bob', password='bob')
         url = reverse('questionAdmin')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
@@ -35,21 +35,21 @@ class UserTests(TestCase):
 
     # Simple test to see if questionnaireAdmin is rendered
     def test_questionnaireAdmin(self):
-        self.client.login(username='bob@bob.com', password='bob')
+        self.client.login(username='bob', password='bob')
         url = reverse('questionnaireAdmin')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'peer_review/questionnaireAdmin.html')
 
     def test_user_list(self):
-        self.client.login(username='bob@bob.com', password='bob')
+        self.client.login(username='bob', password='bob')
         url = reverse('userAdmin')
         response = self.client.get(url)
         #print(response.context['users']())
         self.assertIn(self.user, response.context['users']())
 
     def test_get_user(self):
-        self.client.login(username='bob@bob.com', password='bob')
+        self.client.login(username='bob', password='bob')
         response = self.client.get('/users/')
         request = response.wsgi_request
         response2 = get_user(request, 1)
